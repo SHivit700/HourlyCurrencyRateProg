@@ -52,19 +52,20 @@ def get_transfer_rate(amount_in_aed):
         return None, None
 
 def send_hourly_transfer_rate():
-    amount_in_aed = 190000
-    while True:
-        exchange_rate, amount_in_gbp = get_transfer_rate(amount_in_aed)
-        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    amount_in_aed = 200000
+    exchange_rate, amount_in_gbp = get_transfer_rate(amount_in_aed)
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    if exchange_rate is not None and amount_in_gbp is not None:
+        subject = "Hourly Currency Rate Update"
+        body = (f"{current_time}\n{exchange_rate:.4f} AED to GBP.\n"
+                f"200,000 AED = {amount_in_gbp:.2f} GBP.")
+        print(body)
+        send_email(subject, body)
+    else:
+        print(f"As of {current_time}, the exchange rate could not be retrieved.")
 
-        if exchange_rate is not None and amount_in_gbp is not None:
-            subject = "Hourly Currency Rate Update"
-            body = (f"{current_time}\n {exchange_rate:.4f} AED to GBP.\n"
-                    f"{amount_in_aed} AED is equivalent to {amount_in_gbp:.2f} GBP.")
-            print(body)
-            send_email(subject, body)
-        else:
-            print(f"As of {current_time}, the exchange rate could not be retrieved.")
+# if __name__ == "__main__":
+#     send_hourly_transfer_rate()
 
-if __name__ == "__main__":
-    send_hourly_transfer_rate()
+def main(request):
+    return send_hourly_transfer_rate(request)
