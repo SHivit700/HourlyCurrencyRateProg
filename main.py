@@ -1,3 +1,4 @@
+import configparser
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -6,12 +7,16 @@ from datetime import datetime
 import time
 import requests
 
+# Read configuration
+config = configparser.ConfigParser()
+config.read('config.ini')
+
 # Email configuration
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
-SENDER_EMAIL = 'shivit2004@gmail.com'  # Replace with your Gmail address
-SENDER_PASSWORD = 'jako jmlh zocf ttye'  # Replace with your App Password or Gmail password
-RECIPIENT_EMAIL = 'shivit2004@gmail.com'  # Replace with the recipient's email
+SENDER_EMAIL = config.get('email', 'sender_email')
+SENDER_PASSWORD = config.get('email', 'sender_password')
+RECIPIENT_EMAIL = config.get('email', 'recipient_email')
 
 def send_email(subject, body):
     msg = MIMEMultipart()
