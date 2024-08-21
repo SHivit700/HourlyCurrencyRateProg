@@ -1,3 +1,5 @@
+Python-based software designed to send email updates on exchange rates between AED and GBP. The frequency of these emails is managed on Google Cloud Scheduler.
+
 Create a config.ini file in below format:([email]
 sender_email = ******
 sender_password = ******
