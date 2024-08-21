@@ -1,3 +1,9 @@
+Create a config.ini file in below format:([email]
+sender_email = ******
+sender_password = ******
+recipient_email = ******
+)
+
 Deployed on Google Cloud Services: 
 
 -> Google Cloud Scheduler to run it periodically
